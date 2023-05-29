@@ -1,7 +1,7 @@
 version:  "3.0"
 
 services:
-  cssserver:
+  csvserver:
    image: infracloudio/csvserver:latest
    ports:
      - "9393:9300"
@@ -9,5 +9,18 @@ services:
      - CSVSERVER_BORDER=Orange
    volumes:
      - type: bind
-       source: C:\Users\Bhavani_Vemuri\source\csvserver\solution\inputfile
+       source: C:\Users\Bhavani_Vemuri\source\csvserver-assignment\solution\inputfile
        target: /csvserver/inputdata
+
+  prometheus:
+   image: prom/prometheus:v2.22.0
+   ports:
+     - 9090:9090
+   volumes:
+    - C:\Users\Bhavani_Vemuri\source\csvserver-assignment\solution\prometheus:/etc/prometheus/
+    - prometheus-data:/prometheus
+   command:
+    - '--config.file=/etc/prometheus/prometheus.yml'
+
+volumes:
+  prometheus-data:
